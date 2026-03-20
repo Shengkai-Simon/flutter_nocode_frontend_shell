@@ -1,54 +1,76 @@
-# React + TypeScript + Vite
+# Flutter NoCode Platform — Frontend Shell
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The web management portal for the no-code Flutter UI builder. Users register, log in, manage their projects, and launch the visual editor from here.
 
-Currently, two official plugins are available:
+Served at `/react/` via the platform's Nginx reverse proxy.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Authentication** — Register, login, logout, forgot/reset password, account unlock
+- **Dashboard** — View and manage all projects
+- **Editor Entry** — Launch the Flutter visual editor embedded via iframe
+- **AI Assistant** — Integrated AI panel for layout generation (Create & Adjust modes)
+- **i18n** — Multi-language support (English / Chinese)
+- **Theme** — Light / dark mode
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+---
+
+## Tech Stack
+
+| Category     | Library                                |
+|--------------|----------------------------------------|
+| Framework    | React 19 + TypeScript                  |
+| Build Tool   | Vite 6                                 |
+| Styling      | Tailwind CSS 4 + shadcn/ui (Radix UI)  |
+| State        | Zustand 5                              |
+| Server State | TanStack React Query 5                 |
+| Routing      | React Router DOM 7                     |
+| Forms        | React Hook Form + Zod                  |
+| i18n         | i18next + react-i18next                |
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js 18+
+- Backend services running (see `flutter_nocode_backend`)
+
+### Development
+
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+App runs at `http://localhost:5173` (maps to `/react/` through Nginx in Docker).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Production (Docker)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+Built and served automatically via `docker-compose.services.yml` in `flutter_nocode_backend`.
+
+```bash
+# Build image manually
+docker build -t react-portal .
+
+# Run container
+docker run -p 80:80 react-portal
+# Access at http://localhost/react/
+```
+
+---
+
+## Project Structure
+
+```
+src/
+├── components/       # Reusable UI components
+├── hooks/            # Custom React hooks
+├── layouts/          # Page layout shells (auth, dashboard)
+├── lib/              # API paths, utilities, nav config
+├── locales/          # i18n translation files
+├── routes/           # Route definitions & guards
+└── stores/           # Zustand stores (auth, session, theme, AI assistant)
 ```
