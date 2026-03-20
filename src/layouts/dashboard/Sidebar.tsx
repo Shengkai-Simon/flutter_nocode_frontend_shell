@@ -1,4 +1,4 @@
-import {LayoutList, LogOut, type LucideIcon, Sparkles} from "lucide-react";
+import {LayoutList, LogOut, type LucideIcon} from "lucide-react";
 import {useMutation} from "@tanstack/react-query";
 import {useNavigate} from "react-router-dom";
 import {
