@@ -80,6 +80,9 @@ export function IframeChannelProvider({ children }: { children: ReactNode }) {
                 case 'selectionChanged':
                     window.dispatchEvent(new CustomEvent('flutterSelectionChanged', { detail: payload }));
                     break;
+                case 'projectUpdate':
+                    window.dispatchEvent(new CustomEvent('flutterProjectUpdate', { detail: payload }));
+                    break;
                 default:
                     // You might want to log unhandled message types here for debugging.
                     // console.warn(`[React] Unhandled message type: ${type}`);
