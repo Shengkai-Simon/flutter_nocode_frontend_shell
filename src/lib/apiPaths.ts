@@ -17,6 +17,7 @@ export const apiPaths = {
     getAllProjects: '/api/projects',
     deleteProject: (projectId: number) => `/api/projects/${projectId}`,
     updateProject: (projectId: number) => `/api/projects/${projectId}`,
+    updateProjectData: (projectId: string | number) => `/api/projects/${projectId}/data`,
 
     createPageSession: (projectId: string) => `/api/mcp/projects/${projectId}/sessions/create`,
     adjustPageSession: (projectId: string) => `/api/mcp/projects/${projectId}/sessions/adjust`,
